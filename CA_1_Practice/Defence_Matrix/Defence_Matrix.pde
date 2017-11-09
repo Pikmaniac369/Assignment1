@@ -50,7 +50,7 @@ void drawDefenceMatrix()
 void drawDefMatrixButton()
 {
   //Button position variables
-  float DMbuttonX = (width/5)*4;
+  float DMbuttonX = (width/7)*6;
   float DMbuttonY = (height/8)*7;
   float DMbuttonW = 120;
   float DMbuttonH = 50;
@@ -77,5 +77,6 @@ void drawDefMatrixButton()
   //Write the button label
   fill(0);
   textSize(16.5);
+  textAlign(CENTER, CENTER);
   text(DMbuttonLabel, DMbuttonX, DMbuttonY, DMbuttonW, DMbuttonH);
 }
