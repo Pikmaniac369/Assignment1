@@ -5,8 +5,7 @@ int i = 0;
 void setup()
 {
   fullScreen();
-  //size(500, 500);
-  
+
   //Create the shape
   Def_Matrix = createShape();
   Def_Matrix.beginShape();
@@ -26,52 +25,57 @@ void setup()
   Def_Matrix.endShape(CLOSE);
 }
 
+//Button On/Off
+boolean DMbuttonOn = false;
 void draw()
 {
   background(0);
   drawDefMatrixButton();
   translate(width/2, height/2);
-  
-  for(i=0; i<3; i++)
+
+  for (i=0; i<3; i++)
   {
-    
+
     drawDefenceMatrix();
     scale(0.7);
   }
-  
-  
-  //shape(Def_Matrix);
+
 }
 
 void drawDefenceMatrix()
 {
   shape(Def_Matrix);
-  
-  /*scale(0.8);
-  translate(0, 0);
-  shape(Def_Matrix);*/
 }
 
 void drawDefMatrixButton()
 {
   //Button position variables
-  float buttonX = (width/5)*4;
-  float buttonY = (height/8)*7;
-  float buttonW = 120;
-  float buttonH = 50;
+  float DMbuttonX = (width/5)*4;
+  float DMbuttonY = (height/8)*7;
+  float DMbuttonW = 120;
+  float DMbuttonH = 50;
   //Button Label variable
-  String buttonLabel = "Defence Matrix";
-  
-  //Make the button off-white while off
-  stroke(255);
-  fill(#D3D1D1);
-  
-  //Draw the button while off
+  String DMbuttonLabel = "Defence Matrix";
+
+  if (DMbuttonOn == false)
+  {
+    //Make the button off-white if off
+    stroke(255);
+    fill(#D3D1D1);
+  }
+  else if (DMbuttonOn == true)
+  {
+    //Make the button pale-orange if on
+    stroke(255);
+    fill(#FF9829);
+  }
+
+  //Draw the button
   rectMode(CENTER);
-  rect(buttonX, buttonY, buttonW, buttonH);
-  
+  rect(DMbuttonX, DMbuttonY, DMbuttonW, DMbuttonH);
+
   //Write the button label
   fill(0);
   textSize(16.5);
-  text(buttonLabel, buttonX, buttonY, buttonW, buttonH);
+  text(DMbuttonLabel, DMbuttonX, DMbuttonY, DMbuttonW, DMbuttonH);
 }
