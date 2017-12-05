@@ -31,14 +31,7 @@ void draw()
 {
   background(0);
   drawDefMatrixButton();
-  translate(width/2, height/2);
-
-  for (i=0; i<3; i++)
-  {
-
-    drawDefenceMatrix();
-    scale(0.7);
-  }
+  
 
 }
 
@@ -79,4 +72,29 @@ void drawDefMatrixButton()
   textSize(16.5);
   textAlign(CENTER, CENTER);
   text(DMbuttonLabel, DMbuttonX, DMbuttonY, DMbuttonW, DMbuttonH);
+  
+  if(DMbuttonOn == false)
+  {
+    if( (mousePressed == true) && (mouseButton==LEFT) && (mouseX<(DMbuttonX + (DMbuttonW/2) ) ) && (mouseX>(DMbuttonX - (DMbuttonW/2) ) ) && (mouseY>(DMbuttonY - (DMbuttonH/2) ) ) && (mouseY<(DMbuttonY + (DMbuttonH/2) ) ) )
+    {
+      DMbuttonOn = true;
+      
+      if( (DMbuttonOn == true) )
+      {
+        pushMatrix();
+        translate(width/2, height/2);
+        for (i=0; i<3; i++)
+        {
+          drawDefenceMatrix();
+          scale(0.7);
+        }
+        popMatrix();
+      }
+      
+      drawDefMatrixButton();
+      
+    }
+    
+    DMbuttonOn = false;
+  } 
 }

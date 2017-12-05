@@ -32,7 +32,7 @@ void drawStars()
 
 void drawBoosterButton()
 {
-   //Button position variables
+  //Button position variables
   float BbuttonX = (width/7)*5;
   float BbuttonY = (height/8)*7;
   float BbuttonW = 120;
