@@ -6,11 +6,11 @@ int k = 0;
 
 void setup()
 {
-  fullScreen();
+  fullScreen(P3D);
 }
 
 //Button On/Off
-boolean RKTbuttonOn = false;
+boolean RKTbuttonOn = true;
 
 void draw()
 {
@@ -33,12 +33,11 @@ void draw()
 
 void drawRocket()
 {
-  shape(Rocket);
+
 }
 
 void drawRevRocket()
 {
-  shape(RevRocket);
 }
 
 void drawRocketButton()

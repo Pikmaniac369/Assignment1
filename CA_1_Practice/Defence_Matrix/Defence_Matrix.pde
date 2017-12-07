@@ -4,7 +4,7 @@ int i = 0;
 
 void setup()
 {
-  fullScreen();
+  fullScreen(P3D);
 
   //Create the shape
   Def_Matrix = createShape();

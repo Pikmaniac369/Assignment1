@@ -1,23 +1,17 @@
 void setup()
 {
-  fullScreen();
+  fullScreen(P3D);
   TLRadar = new Radar(width/8f, height/9f, 75f, 0.5f, 255f, 98f, 0f, 255f);
 }
 
 Radar TLRadar;
 
-boolean RbuttonOn = true;
+boolean RbuttonOn = false;
 
 void draw()
 {
   background(0);
   drawRadarButton();
-  
-  if (RbuttonOn == true)
-  {
-    drawRadar();
-  }
-  
 }
 
 void drawRadar()
@@ -58,4 +52,37 @@ void drawRadarButton()
   textSize(16.5);
   textAlign(CENTER, CENTER);
   text(RbuttonLabel, RbuttonX, RbuttonY, RbuttonW, RbuttonH);
+  
+  if(RbuttonOn == false)
+  {
+    if( (mousePressed == true) && (mouseButton==LEFT) && (mouseX<(RbuttonX + (RbuttonW/2) ) ) && (mouseX>(RbuttonX - (RbuttonW/2) ) ) && (mouseY>(RbuttonY - (RbuttonH/2) ) ) && (mouseY<(RbuttonY + (RbuttonH/2) ) ) )
+    {
+      RbuttonOn = true;
+      
+      if( (RbuttonOn == true) )
+      {
+        drawRadar();
+      }
+      
+      drawRadarButton();
+      
+    }
+    
+  }
+  else if(RbuttonOn == true)
+  {
+    if( (mousePressed == true) && (mouseButton==LEFT) && (mouseX<(RbuttonX + (RbuttonW/2) ) ) && (mouseX>(RbuttonX - (RbuttonW/2) ) ) && (mouseY>(RbuttonY - (RbuttonH/2) ) ) && (mouseY<(RbuttonY + (RbuttonH/2) ) ) )
+    {
+      RbuttonOn = false;
+      
+      if( (RbuttonOn == false) )
+      {
+        
+      }
+      
+      //drawRadarButton();
+      
+    }
+  }
+  
 }

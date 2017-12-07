@@ -32,11 +32,13 @@ class Radar
   
   void render()
   {
+    strokeWeight(2);
     stroke(RColor, GColor, BColor, OColor);
     noFill();
     ellipse(center_x, center_y, radius*2, radius*2);
     float trail = 255/4;
     float ColorIntensity = 255f;
+    strokeWeight(1);
     for(int i = 0; i < trail; i++)
     {
       stroke(RColor, GColor, BColor, ColorIntensity-(i*(ColorIntensity/trail)));
