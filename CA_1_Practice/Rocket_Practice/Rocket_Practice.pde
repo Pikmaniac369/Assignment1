@@ -1,9 +1,3 @@
-//Rocket object
-PShape Rocket;
-PShape RevRocket;
-int j = 0;
-int k = 0;
-
 void setup()
 {
   fullScreen(P3D);
@@ -16,7 +10,7 @@ void draw()
 {
   background(0);
   drawRocketButton();
-
+  
   if (RKTbuttonOn == true)
   {
     for (j=0; j<9; j++)
