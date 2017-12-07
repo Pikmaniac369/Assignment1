@@ -11,7 +11,7 @@ void setup()
   Def_Matrix.beginShape();
   //Set fill and stroke
   Def_Matrix.noFill();
-  Def_Matrix.stroke(/*#9FE342*/#42E379);
+  Def_Matrix.stroke(#42E379);//RGB(66, 227, 121) OR HSB(140, 70, 88)
   Def_Matrix.strokeWeight(1);
   //Draw shape
   //Def_Matrix.translate(width/2, height/2);

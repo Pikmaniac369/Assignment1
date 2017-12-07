@@ -1,9 +1,12 @@
 void setup()
 {
   fullScreen();
+  TLRadar = new Radar(width/8f, height/9f, 75f, 0.5f, 255f, 98f, 0f, 255f);
 }
 
-boolean RbuttonOn = false;
+Radar TLRadar;
+
+boolean RbuttonOn = true;
 
 void draw()
 {
@@ -19,7 +22,8 @@ void draw()
 
 void drawRadar()
 {
-  
+  TLRadar.render();
+  TLRadar.update();
 }
 
 void drawRadarButton()
