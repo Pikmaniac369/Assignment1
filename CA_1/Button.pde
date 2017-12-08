@@ -46,7 +46,7 @@ class Button
       stroke(255);
       fill(#FF9829);
     }
-    pushMatrix();
+    //pushMatrix();
     //Draw the button
     rectMode(CENTER);
     rect(ButtonX, ButtonY, ButtonW, ButtonH);
@@ -56,6 +56,8 @@ class Button
     textSize(16.5);
     textAlign(CENTER, CENTER);
     text(ButtonLabel, ButtonX, ButtonY, ButtonW, ButtonH);
-    popMatrix();
+    //popMatrix();
+    
+    println(ButtonLabel, ButtonX, ButtonY, ButtonW, ButtonH);
   }
 }

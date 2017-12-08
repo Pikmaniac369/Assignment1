@@ -5,8 +5,10 @@ void setup()
   
   //Make the background black
   background(0);
-  
-  
+  DMButton = new Button((width/7)*6, (height/8)*7, 120, 50, "Defence Matrix");
+  RButton = new Button((width/7)*1, (height/8)*7, 120, 50, "Radar");
+  RKTButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Rockets");
+  BButton = new Button((width/7)*5, (height/8)*7, 120, 50, "Boosters");
 }
 
 //Boolean variable to tell whether the stars have already been drawn
@@ -16,10 +18,10 @@ boolean StarsDrawn = false;
 //Create the Array of Star objects
 Star[] stars = new Star[500];
 //Create the button objects
-Button DMButton = new Button((width/7)*6, (height/8)*7, 120, 50, "Defence Matrix");
-Button RButton = new Button((width/7)*1, (height/8)*7, 120, 50, "Radar");
-Button RKTButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Rockets");
-Button BButton = new Button((width/7)*5, (height/8)*7, 120, 50, "Boosters");
+Button DMButton;
+Button RButton;
+Button RKTButton;
+Button BButton;
 
 void draw()
 {
