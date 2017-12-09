@@ -10,7 +10,7 @@ class Radar
   float GColor;
   float BColor;
   float OColor;
-  
+
   Radar(float center_x, float center_y, float radius, float freq, float RColor, float GColor, float BColor, float OColor)
   {
     this.center_x = center_x;
@@ -29,7 +29,7 @@ class Radar
   {
     angle = angle + speed;
   }
-  
+
   void render()
   {
     strokeWeight(2);
@@ -38,8 +38,8 @@ class Radar
     ellipse(center_x, center_y, radius*2, radius*2);
     float trail = 255/4;
     float ColorIntensity = 255f;
-    strokeWeight(1);
-    for(int i = 0; i < trail; i++)
+    strokeWeight(4);
+    for (int i = 0; i < trail; i++)
     {
       stroke(RColor, GColor, BColor, ColorIntensity-(i*(ColorIntensity/trail)));
       float x = center_x + sin(angle - i * speed) * radius;
@@ -47,5 +47,4 @@ class Radar
       line(center_x, center_y, x, y);
     }
   }
-  
 }

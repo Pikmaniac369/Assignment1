@@ -1,5 +1,6 @@
 //PShape variable/field
 PShape Def_Matrix;
+PShape Con_Pan;
 
 void setup()
 {
@@ -12,7 +13,7 @@ void setup()
   //Set fill and stroke
   Def_Matrix.noFill();
   Def_Matrix.stroke(#42E379);//RGB(66, 227, 121) OR HSB(140, 70, 88)
-  Def_Matrix.strokeWeight(1);
+  Def_Matrix.strokeWeight(2);
   //Draw shape
   //Def_Matrix.translate(width/2, height/2);
   Def_Matrix.vertex(0-(width/4), 0-(2*(height/6)));
@@ -24,8 +25,23 @@ void setup()
   Def_Matrix.vertex(0-(width/4), 0-(2*(height/6)));
   Def_Matrix.endShape(CLOSE);
   //Finish creating the Def_Matrix shape
-
-
+  
+  //Create the Con_Pan shape
+  Con_Pan = createShape();
+  Con_Pan.beginShape();
+  //Set fill and stroke
+  Con_Pan.fill(255, 0, 0, 255);
+  Con_Pan.stroke(255, 0, 0, 255);
+  Con_Pan.strokeWeight(2);
+  //Draw the Control Panel
+  Con_Pan.vertex(0, (height/8)*6.6 );
+  Con_Pan.vertex( (width/5) * 1, (height/8) * 6.6);
+  Con_Pan.vertex( (width/5) * 4, (height/8) * 6.6);
+  Con_Pan.vertex(width, (height/8) * 6.6);
+  Con_Pan.vertex(width, height);
+  Con_Pan.vertex(0, height);
+  Con_Pan.vertex(0, (height/8)*6.6 );
+  Con_Pan.endShape(CLOSE);
 
   //Initialise the button objects
   DMButton = new Button((width/7)*6, (height/8)*7, 120, 50, "Defence Matrix");
@@ -34,9 +50,9 @@ void setup()
   BButton = new Button((width/7)*5, (height/8)*7, 120, 50, "Boosters");
 
   //Initialise the Radar object
-  TLRadar = new Radar(width/8f, height/9f, 75f, 0.5f, 255f, 98f, 0f, 255f);
+  TLRadar = new Radar(width/8f, (height/9f) * 1.5, 75f, 0.35f, 255f, 155f, 0f, 255f);
   //Initialise the Reticle object
-  Ret = new Reticle(255, width/2, height/2, 25);
+  Ret = new Reticle(color(255, 155, 0), width/2, height/2, 25f);
 }
 
 
@@ -67,7 +83,7 @@ Reticle Ret;
 
 
 
-//BULLETS WILL BE WITHIN THE CIRCLE IF THE DISTANCE BETWEEN THEIR POINT AND THE CENTRE OF THE CIRCLE IS LESS THAN THE RADIUS OF THE CIRCLE
+//----------------------------------->USE AN ARRAY TO HOLD BULLET OBJECTS<-----------------------------------
 
 
 
@@ -126,14 +142,12 @@ void draw()
 
 void drawStars()
 {
-  
+
 
   for (int i = 0; i < stars.length; i++)
   {
     stars[i].render();
   }
-
-  
 }
 
 
@@ -144,7 +158,7 @@ void makeStars()
   {
     stars[i] = new Star();
   }
-  
+
   StarsDrawn = true;
 }
 
@@ -154,6 +168,7 @@ void makeStars()
 //Draw the Control Panel that will contain the buttons
 void drawControlPanel()
 {
+  shape(Con_Pan);
   DMButton.render();
   RButton.render();
   RKTButton.render();
@@ -164,7 +179,16 @@ void drawControlPanel()
 
 
 
-
+void keyPressed()
+{
+  if(keyCode == 'w')
+  {
+    for(int i = 0; i < stars.length; i++)
+    {
+      stars[i].updateF();
+    }
+  }
+}
 
 
 
