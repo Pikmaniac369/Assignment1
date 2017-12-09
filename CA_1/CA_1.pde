@@ -35,6 +35,8 @@ void setup()
 
   //Initialise the Radar object
   TLRadar = new Radar(width/8f, height/9f, 75f, 0.5f, 255f, 98f, 0f, 255f);
+  //Initialise the Reticle object
+  Ret = new Reticle(255, width/2, height/2, 25);
 }
 
 
@@ -49,15 +51,19 @@ boolean StarsDrawn = false;
 
 //Create the Array of Star objects
 Star[] stars = new Star[500];
+
 //Create the button objects
 Button DMButton;
 Button RButton;
 Button RKTButton;
 Button BButton;
+
 //Create the Defence Matrix object
 Defence_Matrix DM = new Defence_Matrix(Def_Matrix);
 //Create the Radar object
 Radar TLRadar;
+//Create the Reticle object
+Reticle Ret;
 
 
 
@@ -152,6 +158,7 @@ void drawControlPanel()
   RButton.render();
   RKTButton.render();
   BButton.render();
+  Ret.render();
 }
 
 
