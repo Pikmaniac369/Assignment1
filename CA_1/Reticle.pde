@@ -17,7 +17,9 @@ class Reticle
   {
     //Set the reticle color
     stroke(RetColor);
+    noFill();
     //Draw the reticle
+    ellipse(RetCenX, RetCenY, RetRadius * 2, RetRadius *2);
     fill(RetColor);
     ellipse(RetCenX, RetCenY, (RetRadius / 5) *2, (RetRadius / 5) * 2 );
   }

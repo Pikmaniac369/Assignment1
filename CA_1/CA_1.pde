@@ -84,8 +84,8 @@ Reticle Ret;
 
 
 //----------------------------------->USE AN ARRAY TO HOLD BULLET OBJECTS<-----------------------------------
-
-
+Bullet[] LeftBullets = new Bullet[9];
+Bullet[] RightBullets = new Bullet[9];
 
 
 
@@ -124,6 +124,46 @@ void draw()
   {
     TLRadar.render();
     TLRadar.update();
+  }
+  
+  if(keyPressed == true && (key == 'w' || key == 'W' || keyCode == UP))
+  {
+   
+    for(int i = 0; i < stars.length; i++)
+    {
+      stars[i].updateF();
+    }
+    
+  }
+  
+  if(keyPressed == true && (key == 's' || key == 'S' || keyCode == DOWN))
+  {
+   
+    for(int i = 0; i < stars.length; i++)
+    {
+      stars[i].updateB();
+    }
+    
+  }
+  
+  if(keyPressed == true && (key == 'a' || key == 'A' || keyCode == LEFT))
+  {
+   
+    for(int i = 0; i < stars.length; i++)
+    {
+      stars[i].updateL();
+    }
+    
+  }
+  
+  if(keyPressed == true && (key == 'd' || key == 'D' || keyCode == RIGHT))
+  {
+   
+    for(int i = 0; i < stars.length; i++)
+    {
+      stars[i].updateR();
+    }
+    
   }
 }
 
@@ -179,16 +219,18 @@ void drawControlPanel()
 
 
 
-void keyPressed()
+/*void keyPressed()
 {
-  if(keyCode == 'w')
+  if(keyPressed == true && key == 'w')
   {
+   
     for(int i = 0; i < stars.length; i++)
     {
       stars[i].updateF();
     }
+    
   }
-}
+}*/
 
 
 

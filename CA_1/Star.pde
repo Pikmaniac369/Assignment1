@@ -13,7 +13,22 @@ class Star
 
   void updateF()
   {
-    StarZ++;
+    StarZ = StarZ + 5;
+  }
+  
+  void updateB()
+  {
+    StarZ = StarZ - 5;
+  }
+  
+  void updateL()
+  {
+    StarX = StarX + 5;
+  }
+  
+  void updateR()
+  {
+    StarX = StarX - 5;
   }
 
   void render()
