@@ -20,13 +20,17 @@ class Button
     this.ButtonLabel = ButtonLabel;
   }
 
+  //Change the button's state from On to Off or Off to On
   void update()
   {
     if (ButtonOn == false)
     {
+      //Off to On
       ButtonOn = true;
-    } else if (ButtonOn == true)
+    } 
+    else if (ButtonOn == true)
     {
+      //On to Off
       ButtonOn = false;
     }
   }

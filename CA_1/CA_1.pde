@@ -1,4 +1,4 @@
-//PShape variable/field
+//PShape variables/fields
 PShape Def_Matrix;
 PShape Con_Pan;
 
@@ -113,19 +113,23 @@ void draw()
 
   //Draw the control panel and buttons
   drawControlPanel();
-  //--------------->If the buttons are On, draw the corressponding objects <-------------------
-
+  
+  //--------------->If the buttons are On, draw the corressponding objects<-------------------
+  //If the Defence Matrix button is on, draw the Defence Matrix
   if (DMButton.ButtonOn == true)
   {
     DM.render();
   }
-
+  
+  //If the Radar button is on, draw the Radar
   if (RButton.ButtonOn == true)
   {
     TLRadar.render();
     TLRadar.update();
   }
   
+  //--------------->If WASD or UP, DOWN, LEFT or RIGHT are pressed, move the stars to simulate the ship moving<-------------------
+  //If W or UP is pressed, move the stars towards the screen to simulate the ship moving forward
   if(keyPressed == true && (key == 'w' || key == 'W' || keyCode == UP))
   {
    
@@ -136,6 +140,7 @@ void draw()
     
   }
   
+  //If S or DOWN is pressed, move the stars away from the screen to simulate the ship moving backwards
   if(keyPressed == true && (key == 's' || key == 'S' || keyCode == DOWN))
   {
    
@@ -146,6 +151,7 @@ void draw()
     
   }
   
+  //If A or LEFT is pressed, move the stars to the right to simulate the ship moving left
   if(keyPressed == true && (key == 'a' || key == 'A' || keyCode == LEFT))
   {
    
@@ -156,6 +162,7 @@ void draw()
     
   }
   
+  //If D or RIGHT is pressed, move the stars to the left to simulate the sip moving right
   if(keyPressed == true && (key == 'd' || key == 'D' || keyCode == RIGHT))
   {
    
@@ -165,6 +172,8 @@ void draw()
     }
     
   }
+  
+  
 }
 
 
@@ -179,7 +188,7 @@ void draw()
 
 
 
-
+//Function to display the stars to the screen
 void drawStars()
 {
 
@@ -191,7 +200,7 @@ void drawStars()
 }
 
 
-
+//Function to make Star objects and insert them into an array
 void makeStars()
 {
   for (int i = 0; i < stars.length; i++)
@@ -219,23 +228,11 @@ void drawControlPanel()
 
 
 
-/*void keyPressed()
-{
-  if(keyPressed == true && key == 'w')
-  {
-   
-    for(int i = 0; i < stars.length; i++)
-    {
-      stars[i].updateF();
-    }
-    
-  }
-}*/
 
 
 
 
-
+//Change the state of the buttons when they are clicked
 void mouseClicked()
 {
   if ( (mouseX < (DMButton.ButtonX + (DMButton.ButtonW / 2) ) ) && (mouseX > DMButton.ButtonX - (DMButton.ButtonW / 2) ) && (mouseY > (DMButton.ButtonY - (DMButton.ButtonH / 2)) ) && (mouseY < (DMButton.ButtonY + (DMButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW

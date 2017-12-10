@@ -15,6 +15,7 @@ class Defence_Matrix
 
   void render()
   {
+    //Draw the Defence Matrix taking the centre of the screen to be the origin(0,0)
     pushMatrix();
     translate(width/2, height/2);
     for (i = 0; i < 3; i++)
@@ -23,5 +24,7 @@ class Defence_Matrix
       scale(0.7);
     }
     popMatrix();
+    //End the translation
   }
+  
 }
