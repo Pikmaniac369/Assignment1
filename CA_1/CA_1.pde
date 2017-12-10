@@ -65,7 +65,7 @@ void setup()
 boolean StarsDrawn = false;
 
 //Create the Array of Star objects
-Star[] stars = new Star[500];
+Star[] stars = new Star[1000];
 
 //Create the button objects
 Button DMButton;
@@ -116,6 +116,18 @@ void draw()
   if (DMButton.ButtonOn == true)
   {
     DM.render();
+  }
+  
+  //If the Booster button is on, draw the warp_speed effect
+  if(BButton.ButtonOn == true)
+  {
+    pushMatrix();
+    translate(width/2, height/2);
+    for(Star s:stars)
+    {
+      s.warp_speed();
+    }
+    popMatrix();
   }
   
   //If the Rocket button is on, drawe and fire the bullets
@@ -197,12 +209,13 @@ void draw()
 //Function to display the stars to the screen
 void drawStars()
 {
-
-
+  pushMatrix();
+  translate(width/2, height/2);
   for (int i = 0; i < stars.length; i++)
   {
     stars[i].render();
   }
+  popMatrix();
 }
 
 
