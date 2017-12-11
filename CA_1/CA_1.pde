@@ -137,7 +137,7 @@ void draw()
   if(RKTButton.ButtonOn == true && RocketsFired == false)
   {
     Shoot();
-    RocketsFired = true;
+    //RocketsFired = true;
   }
   
   //If the Rocket button is off, set the Rockets to not having been fired
@@ -261,30 +261,17 @@ void Shoot()
 
 void makeRockets()
 {
-      for(int i = 0; i < rockets.length; i++)
-      {
-        PVector retCoordinates = new PVector(width/2, (height/8)*6.6);
-        PVector startPosition;
-        PVector direction;
-        float MaximumSpeed = 1;
-        if(i % 2 == 0)
-        {
-          startPosition = new PVector(0, (height/8)*6);
-          direction = PVector.sub(retCoordinates, startPosition);
-          //direction.normalize();
-          direction.mult(MaximumSpeed);
-          rockets[i] = new Rocket(startPosition, direction);   
-        }
-        else if(i % 2 == 1)
-        {
-          startPosition = new PVector(width, (height/8)*6);
-          direction = PVector.sub(retCoordinates, startPosition);
-          //direction.normalize();
-          direction.mult(MaximumSpeed);
-          rockets[i] = new Rocket(startPosition, direction);
-        }
-      }
-    
+  for(int i = 0; i < rockets.length; i++)
+  {
+    if(frameCount % 2 == 0)
+    {
+      rockets[i] = new Rocket(0f, (height/8)*6);
+    }
+    else if(frameCount % 2 == 1)
+    {
+      rockets[i] = new Rocket(width, (height/8)*6);
+    }
+  }
 }
 
 void fireRockets()

@@ -1,33 +1,37 @@
 class Rocket
 {
-  PVector Position;
-  PVector Velocity;
+  PVector startPos;
+  PVector Velo;
+  PVector Accel;
   
-  Rocket(PVector Pos, PVector Vel)
+  Rocket(float startPosX, float startPosY)
   {
-    Position = Pos.copy();
-    Velocity = Vel.copy();
+    startPos = new PVector(startPosX, startPosY);
+    
+    Velo = new PVector(0, 0);
+    Accel = new PVector(0, 0);
   }
   
   void update()
   {
-    println(Position);
-    while(Position.x != width/2)
-    {
-      Position = Position.add(Velocity);
-      Velocity.limit(1);
-      if(frameCount % (180000/18) == 0)
-      {
-        render();
-      }
-    }
-    println(Position);
+     PVector retPos = new PVector(width/2, height/2);
+     
+     retPos.sub(startPos);
+     
+     retPos.setMag(1);
+     
+     Accel = retPos;
+     
+     Velo.add(Accel);
+     startPos.add(Velo);
+     Velo.limit(5);
+    
   }
   
   void render()
   {
     noStroke();
     fill(#42E379);
-    ellipse(Position.x, Position.y, 50, 10);
+    ellipse(startPos.x, startPos.y, 50, 10);
   }
 }
