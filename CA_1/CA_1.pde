@@ -80,6 +80,12 @@ Radar TLRadar;
 //Create the Reticle object
 Reticle Ret;
 
+//Boolean variable to tell whether the Rockets have been fired
+boolean RocketsFired = false;
+
+//Create the array of Rocket objects
+Rocket[] rockets = new Rocket[18];
+
 
 
 
@@ -127,7 +133,18 @@ void draw()
     popMatrix();
   }
   
+  //If the Rocket button is on and the Rockets haven't been fired, draw and update the bullets
+  if(RKTButton.ButtonOn == true && RocketsFired == false)
+  {
+    Shoot();
+    RocketsFired = true;
+  }
   
+  //If the Rocket button is off, set the Rockets to not having been fired
+  if(RKTButton.ButtonOn == false)
+  {
+    RocketsFired = false;
+  }
   
   //If the Radar button is on, draw the Radar
   if (RButton.ButtonOn == true)
@@ -235,8 +252,49 @@ void drawControlPanel()
 }
 
 
+void Shoot()
+{
+  makeRockets();
+  
+  fireRockets();
+}
 
+void makeRockets()
+{
+      for(int i = 0; i < rockets.length; i++)
+      {
+        PVector retCoordinates = new PVector(width/2, (height/8)*6.6);
+        PVector startPosition;
+        PVector direction;
+        float MaximumSpeed = 1;
+        if(i % 2 == 0)
+        {
+          startPosition = new PVector(0, (height/8)*6);
+          direction = PVector.sub(retCoordinates, startPosition);
+          //direction.normalize();
+          direction.mult(MaximumSpeed);
+          rockets[i] = new Rocket(startPosition, direction);   
+        }
+        else if(i % 2 == 1)
+        {
+          startPosition = new PVector(width, (height/8)*6);
+          direction = PVector.sub(retCoordinates, startPosition);
+          //direction.normalize();
+          direction.mult(MaximumSpeed);
+          rockets[i] = new Rocket(startPosition, direction);
+        }
+      }
+    
+}
 
+void fireRockets()
+{
+  for(Rocket r:rockets)
+  {
+    r.render();
+    r.update();
+  }
+}
 
 
 
@@ -252,6 +310,7 @@ void mouseClicked()
   } else if ( (mouseX < (RKTButton.ButtonX + (RKTButton.ButtonW / 2) ) ) && (mouseX > RKTButton.ButtonX - (RKTButton.ButtonW / 2) ) && (mouseY > (RKTButton.ButtonY - (RKTButton.ButtonH / 2)) ) && (mouseY < (RKTButton.ButtonY + (RKTButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     RKTButton.update();
+    
   } else if ( (mouseX < (BButton.ButtonX + (BButton.ButtonW / 2) ) ) && (mouseX > BButton.ButtonX - (BButton.ButtonW / 2) ) && (mouseY > (BButton.ButtonY - (BButton.ButtonH / 2)) ) && (mouseY < (BButton.ButtonY + (BButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     BButton.update();
