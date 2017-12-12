@@ -44,6 +44,7 @@ class Radar
     //Set the legth of the scanner's trail
     float trail = 255/4;
     float ColorIntensity = 255f;
+    
     //Set the scanner's stroke weight
     strokeWeight(4);
     //Draw the Radar's scanner
@@ -55,5 +56,6 @@ class Radar
       float y = center_y - cos(angle - i * speed) * radius;
       line(center_x, center_y, x, y);
     }
+    strokeWeight(1);
   }
 }

@@ -26,5 +26,4 @@ class Defence_Matrix
     popMatrix();
     //End the translation
   }
-  
 }

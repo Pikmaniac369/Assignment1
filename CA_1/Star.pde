@@ -4,7 +4,6 @@ class Star
   float StarX;
   float StarY;
   float StarZ;
-  
   float PreviousZ;
   
   Star()
