@@ -1,3 +1,17 @@
+//Import the minim sound library
+import ddf.minim.*;
+
+Minim  minim;
+
+//Sound files
+AudioPlayer DM_Audio;
+AudioPlayer Guns_Audio;
+AudioPlayer Hyperspace_Audio;
+AudioPlayer Radar_Audio;
+
+
+
+
 //PShape variables/fields
 PShape Def_Matrix;
 PShape Con_Pan;
@@ -25,7 +39,7 @@ void setup()
   Def_Matrix.vertex(0-(width/4), 0-(2*(height/6)));
   Def_Matrix.endShape(CLOSE);
   //Finish creating the Def_Matrix shape
-  
+
   //Create the Con_Pan shape
   Con_Pan = createShape();
   Con_Pan.beginShape();
@@ -46,14 +60,23 @@ void setup()
   //Initialise the button objects
   DMButton = new Button((width/7)*6, (height/8)*7, 120, 50, "Defence Matrix");
   RButton = new Button((width/7)*1, (height/8)*7, 120, 50, "Radar");
-  RKTButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Rockets");
+  RKTButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Guns");
   BButton = new Button((width/7)*5, (height/8)*7, 120, 50, "Boosters");
 
   //Initialise the Radar object
   TLRadar = new Radar(width/8f, (height/9f) * 1.5, 75f, 0.35f, 255f, 155f, 0f, 255f);
   //Initialise the Reticle object
   Ret = new Reticle(color(255, 155, 0), width/2, height/2, 25f);
+
+  minim = new Minim(this);
+
+  //Initialise the Sound files
+  DM_Audio = minim.loadFile("Defence_Matrix.mp3");
+  Guns_Audio = minim.loadFile("Gun.mp3");
+  Hyperspace_Audio = minim.loadFile("Hyperspace.mp3");
+  Radar_Audio = minim.loadFile("Radar.mp3");
 }
+
 
 
 
@@ -86,19 +109,8 @@ boolean RocketsFired = false;
 //Create the array of Rocket objects
 Rocket[] rockets = new Rocket[18];
 
-
-
-
-
-
-
-
-
-
-
 void draw()
 {
-
   //Make the background black
   background(0);
 
@@ -113,105 +125,124 @@ void draw()
 
   //Draw the control panel and buttons
   drawControlPanel();
-  
+
   //--------------->If the buttons are On, draw the corressponding objects<-------------------
-  //If the Defence Matrix button is on, draw the Defence Matrix
+  //If the Defence Matrix button is on, draw the Defence Matrix and play its audio
   if (DMButton.ButtonOn == true)
   {
+
     DM.render();
+    DM_Audio.play();
   }
-  
-  //If the Booster button is on, draw the warp_speed effect
-  if(BButton.ButtonOn == true)
+
+  if (DMButton.ButtonOn == false)
   {
+    DM_Audio.rewind();
+  }
+
+  //If the Booster button is on, draw the warp_speed effect
+  if (BButton.ButtonOn == true)
+  {
+    if (Hyperspace_Audio.isPlaying() == false)
+    {
+      Hyperspace_Audio.rewind();
+    }
+    Hyperspace_Audio.play();
     pushMatrix();
+
     translate(width/2, height/2);
-    for(Star s:stars)
+    for (Star s : stars)
     {
       s.warp_speed();
     }
     popMatrix();
   }
-  
-  //If the Rocket button is on and the Rockets haven't been fired, draw and update the bullets
-  if(RKTButton.ButtonOn == true && RocketsFired == false)
+
+  if (BButton.ButtonOn == false)
   {
+
+    Hyperspace_Audio.rewind();
+  }
+
+  //If the Rocket button is on and the Rockets haven't been fired, draw and update the bullets
+  if (RKTButton.ButtonOn == true && RocketsFired == false)
+  {
+    if (Guns_Audio.isPlaying() == false)
+    {
+      Guns_Audio.rewind();
+    }
+    Guns_Audio.play();
     Shoot();
     //RocketsFired = true;
   }
-  
+
   //If the Rocket button is off, set the Rockets to not having been fired
-  if(RKTButton.ButtonOn == false)
+  if (RKTButton.ButtonOn == false)
   {
+    Guns_Audio.rewind();
     RocketsFired = false;
   }
-  
+
+  Radar_Audio.setLoopPoints(1, Radar_Audio.length());
+
   //If the Radar button is on, draw the Radar
   if (RButton.ButtonOn == true)
   {
+    if (Radar_Audio.isPlaying() == false)
+    {
+      Radar_Audio.rewind();
+    }
+    Radar_Audio.play();
     TLRadar.render();
     TLRadar.update();
   }
-  
+
+  if (RButton.ButtonOn == false)
+  {
+    Radar_Audio.rewind();
+  }
+
   //--------------->If WASD or UP, DOWN, LEFT or RIGHT are pressed, move the stars to simulate the ship moving<-------------------
   //If W or UP is pressed, move the stars towards the screen to simulate the ship moving forward
-  if(keyPressed == true && (key == 'w' || key == 'W' || keyCode == UP))
+  if (keyPressed == true && (key == 'w' || key == 'W' || keyCode == UP))
   {
-   
-    for(int i = 0; i < stars.length; i++)
+
+    for (int i = 0; i < stars.length; i++)
     {
       stars[i].updateF();
     }
-    
   }
-  
+
   //If S or DOWN is pressed, move the stars away from the screen to simulate the ship moving backwards
-  if(keyPressed == true && (key == 's' || key == 'S' || keyCode == DOWN))
+  if (keyPressed == true && (key == 's' || key == 'S' || keyCode == DOWN))
   {
-   
-    for(int i = 0; i < stars.length; i++)
+
+    for (int i = 0; i < stars.length; i++)
     {
       stars[i].updateB();
     }
-    
   }
-  
+
   //If A or LEFT is pressed, move the stars to the right to simulate the ship moving left
-  if(keyPressed == true && (key == 'a' || key == 'A' || keyCode == LEFT))
+  if (keyPressed == true && (key == 'a' || key == 'A' || keyCode == LEFT))
   {
-   
-    for(int i = 0; i < stars.length; i++)
+
+    for (int i = 0; i < stars.length; i++)
     {
       stars[i].updateL();
     }
-    
   }
-  
+
   //If D or RIGHT is pressed, move the stars to the left to simulate the sip moving right
-  if(keyPressed == true && (key == 'd' || key == 'D' || keyCode == RIGHT))
+  if (keyPressed == true && (key == 'd' || key == 'D' || keyCode == RIGHT))
   {
-   
-    for(int i = 0; i < stars.length; i++)
+
+    for (int i = 0; i < stars.length; i++)
     {
       stars[i].updateR();
     }
-    
   }
-  
-  
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Function to display the stars to the screen
 void drawStars()
@@ -225,7 +256,6 @@ void drawStars()
   popMatrix();
 }
 
-
 //Function to make Star objects and insert them into an array
 void makeStars()
 {
@@ -236,9 +266,6 @@ void makeStars()
 
   StarsDrawn = true;
 }
-
-
-
 
 //Draw the Control Panel that will contain the buttons
 void drawControlPanel()
@@ -251,23 +278,21 @@ void drawControlPanel()
   Ret.render();
 }
 
-
 void Shoot()
 {
   makeRockets();
-  
+
   fireRockets();
 }
 
 void makeRockets()
 {
-  for(int i = 0; i < rockets.length; i++)
+  for (int i = 0; i < rockets.length; i++)
   {
-    if(frameCount % 2 == 0)
+    if (frameCount % 2 == 0)
     {
       rockets[i] = new Rocket(0f, (height/8)*6);
-    }
-    else if(frameCount % 2 == 1)
+    } else if (frameCount % 2 == 1)
     {
       rockets[i] = new Rocket(width, (height/8)*6);
     }
@@ -276,14 +301,12 @@ void makeRockets()
 
 void fireRockets()
 {
-  for(Rocket r:rockets)
+  for (Rocket r : rockets)
   {
     r.render();
     r.update();
   }
 }
-
-
 
 //Change the state of the buttons when they are clicked
 void mouseClicked()
@@ -291,13 +314,23 @@ void mouseClicked()
   if ( (mouseX < (DMButton.ButtonX + (DMButton.ButtonW / 2) ) ) && (mouseX > DMButton.ButtonX - (DMButton.ButtonW / 2) ) && (mouseY > (DMButton.ButtonY - (DMButton.ButtonH / 2)) ) && (mouseY < (DMButton.ButtonY + (DMButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     DMButton.update();
+
+    /*if(DMButton.ButtonOn == true)
+     {
+     
+     
+     }
+     else if(DMButton.ButtonOn == false)
+     {
+     Def_Mat_Audio.pause();
+     Def_Mat_Audio.rewind();
+     }*/
   } else if ( (mouseX < (RButton.ButtonX + (RButton.ButtonW / 2) ) ) && (mouseX > RButton.ButtonX - (RButton.ButtonW / 2) ) && (mouseY > (RButton.ButtonY - (RButton.ButtonH / 2)) ) && (mouseY < (RButton.ButtonY + (RButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     RButton.update();
   } else if ( (mouseX < (RKTButton.ButtonX + (RKTButton.ButtonW / 2) ) ) && (mouseX > RKTButton.ButtonX - (RKTButton.ButtonW / 2) ) && (mouseY > (RKTButton.ButtonY - (RKTButton.ButtonH / 2)) ) && (mouseY < (RKTButton.ButtonY + (RKTButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     RKTButton.update();
-    
   } else if ( (mouseX < (BButton.ButtonX + (BButton.ButtonW / 2) ) ) && (mouseX > BButton.ButtonX - (BButton.ButtonW / 2) ) && (mouseY > (BButton.ButtonY - (BButton.ButtonH / 2)) ) && (mouseY < (BButton.ButtonY + (BButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     BButton.update();
