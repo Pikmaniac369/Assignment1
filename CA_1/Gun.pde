@@ -1,10 +1,10 @@
-class Rocket
+class Gun
 {
   PVector startPos;
   PVector Velo;
   PVector Accel;
   
-  Rocket(float startPosX, float startPosY)
+  Gun(float startPosX, float startPosY)
   {
     startPos = new PVector(startPosX, startPosY);
     

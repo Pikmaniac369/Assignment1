@@ -9,9 +9,6 @@ AudioPlayer Guns_Audio;
 AudioPlayer Hyperspace_Audio;
 AudioPlayer Radar_Audio;
 
-
-
-
 //PShape variables/fields
 PShape Def_Matrix;
 PShape Con_Pan;
@@ -60,7 +57,7 @@ void setup()
   //Initialise the button objects
   DMButton = new Button((width/7)*6, (height/8)*7, 120, 50, "Defence Matrix");
   RButton = new Button((width/7)*1, (height/8)*7, 120, 50, "Radar");
-  RKTButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Guns");
+  GunButton = new Button((width/7)*2, (height/8)*7, 120, 50, "Guns");
   BButton = new Button((width/7)*5, (height/8)*7, 120, 50, "Boosters");
 
   //Initialise the Radar object
@@ -77,13 +74,6 @@ void setup()
   Radar_Audio = minim.loadFile("Radar.mp3");
 }
 
-
-
-
-
-
-
-
 //Boolean variable to tell whether the stars have already been drawn
 boolean StarsDrawn = false;
 
@@ -93,7 +83,7 @@ Star[] stars = new Star[1000];
 //Create the button objects
 Button DMButton;
 Button RButton;
-Button RKTButton;
+Button GunButton;
 Button BButton;
 
 //Create the Defence Matrix object
@@ -103,11 +93,11 @@ Radar TLRadar;
 //Create the Reticle object
 Reticle Ret;
 
-//Boolean variable to tell whether the Rockets have been fired
-boolean RocketsFired = false;
+//Boolean variable to tell whether the Guns have been fired
+boolean GunsFired = false;
 
-//Create the array of Rocket objects
-Rocket[] rockets = new Rocket[18];
+//Create the array of Gun objects
+Gun[] guns = new Gun[18];
 
 void draw()
 {
@@ -165,7 +155,7 @@ void draw()
   }
 
   //If the Rocket button is on and the Rockets haven't been fired, draw and update the bullets
-  if (RKTButton.ButtonOn == true && RocketsFired == false)
+  if (GunButton.ButtonOn == true && GunsFired == false)
   {
     if (Guns_Audio.isPlaying() == false)
     {
@@ -177,10 +167,10 @@ void draw()
   }
 
   //If the Rocket button is off, set the Rockets to not having been fired
-  if (RKTButton.ButtonOn == false)
+  if (GunButton.ButtonOn == false)
   {
     Guns_Audio.rewind();
-    RocketsFired = false;
+    GunsFired = false;
   }
 
   Radar_Audio.setLoopPoints(1, Radar_Audio.length());
@@ -273,38 +263,38 @@ void drawControlPanel()
   shape(Con_Pan);
   DMButton.render();
   RButton.render();
-  RKTButton.render();
+  GunButton.render();
   BButton.render();
   Ret.render();
 }
 
 void Shoot()
 {
-  makeRockets();
+  makeAmmo();
 
-  fireRockets();
+  fireGuns();
 }
 
-void makeRockets()
+void makeAmmo()
 {
-  for (int i = 0; i < rockets.length; i++)
+  for (int i = 0; i < guns.length; i++)
   {
     if (frameCount % 2 == 0)
     {
-      rockets[i] = new Rocket(0f, (height/8)*6);
+      guns[i] = new Gun(0f, (height/8)*6);
     } else if (frameCount % 2 == 1)
     {
-      rockets[i] = new Rocket(width, (height/8)*6);
+      guns[i] = new Gun(width, (height/8)*6);
     }
   }
 }
 
-void fireRockets()
+void fireGuns()
 {
-  for (Rocket r : rockets)
+  for (Gun g : guns)
   {
-    r.render();
-    r.update();
+    g.render();
+    g.update();
   }
 }
 
@@ -314,27 +304,20 @@ void mouseClicked()
   if ( (mouseX < (DMButton.ButtonX + (DMButton.ButtonW / 2) ) ) && (mouseX > DMButton.ButtonX - (DMButton.ButtonW / 2) ) && (mouseY > (DMButton.ButtonY - (DMButton.ButtonH / 2)) ) && (mouseY < (DMButton.ButtonY + (DMButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     DMButton.update();
-
-    /*if(DMButton.ButtonOn == true)
-     {
-     
-     
-     }
-     else if(DMButton.ButtonOn == false)
-     {
-     Def_Mat_Audio.pause();
-     Def_Mat_Audio.rewind();
-     }*/
-  } else if ( (mouseX < (RButton.ButtonX + (RButton.ButtonW / 2) ) ) && (mouseX > RButton.ButtonX - (RButton.ButtonW / 2) ) && (mouseY > (RButton.ButtonY - (RButton.ButtonH / 2)) ) && (mouseY < (RButton.ButtonY + (RButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
+  }
+  else if ( (mouseX < (RButton.ButtonX + (RButton.ButtonW / 2) ) ) && (mouseX > RButton.ButtonX - (RButton.ButtonW / 2) ) && (mouseY > (RButton.ButtonY - (RButton.ButtonH / 2)) ) && (mouseY < (RButton.ButtonY + (RButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     RButton.update();
-  } else if ( (mouseX < (RKTButton.ButtonX + (RKTButton.ButtonW / 2) ) ) && (mouseX > RKTButton.ButtonX - (RKTButton.ButtonW / 2) ) && (mouseY > (RKTButton.ButtonY - (RKTButton.ButtonH / 2)) ) && (mouseY < (RKTButton.ButtonY + (RKTButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
+  }
+  else if ( (mouseX < (GunButton.ButtonX + (GunButton.ButtonW / 2) ) ) && (mouseX > GunButton.ButtonX - (GunButton.ButtonW / 2) ) && (mouseY > (GunButton.ButtonY - (GunButton.ButtonH / 2)) ) && (mouseY < (GunButton.ButtonY + (GunButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
-    RKTButton.update();
-  } else if ( (mouseX < (BButton.ButtonX + (BButton.ButtonW / 2) ) ) && (mouseX > BButton.ButtonX - (BButton.ButtonW / 2) ) && (mouseY > (BButton.ButtonY - (BButton.ButtonH / 2)) ) && (mouseY < (BButton.ButtonY + (BButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
+    GunButton.update();
+  }
+  else if ( (mouseX < (BButton.ButtonX + (BButton.ButtonW / 2) ) ) && (mouseX > BButton.ButtonX - (BButton.ButtonW / 2) ) && (mouseY > (BButton.ButtonY - (BButton.ButtonH / 2)) ) && (mouseY < (BButton.ButtonY + (BButton.ButtonH / 2) ) ) )//USE VOID UPDATE FOR EACH OBJECT THEN GO BACK TO DRAW
   {
     BButton.update();
-  } else
+  }
+  else
   {
   }
 }
