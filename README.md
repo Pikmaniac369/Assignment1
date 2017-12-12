@@ -15,5 +15,4 @@ I have also included several audio files in the project's data folder. These fil
 As for what I'm most proud of in regards to this assignment, I would have to say the Radar effect of the Radar button and the hyperspace effect of the Boosters button. I had no idea how to use geometry or the z-axis in coding and yet I managed to complete these parts of the assignment. For this reason alone, I am most proud of the Radar and the hyperspace effect.
 
 ## Link To My YouTube Video Of This Assignment
-[![YouTube](http://img.youtube.com/vi/O5EslqlbkiU/0.jpg)]
-(https://www.youtube.com/watch?v=O5EslqlbkiU)
+[![YouTube](http://img.youtube.com/vi/O5EslqlbkiU/0.jpg)](https://www.youtube.com/watch?v=O5EslqlbkiU)
